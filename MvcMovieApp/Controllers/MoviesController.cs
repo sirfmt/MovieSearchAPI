@@ -30,6 +30,7 @@ namespace MvcMovieApp.Controllers
         public ActionResult Search(string movie)
         {
             string html = string.Empty;
+            string matrix = movie;
             string url = @"http://www.omdbapi.com/?s=matrix&r=xml&apikey=5ec4811a";
 
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
