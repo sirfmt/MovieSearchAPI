@@ -31,7 +31,7 @@ namespace MvcMovieApp.Controllers
         {
             string html = string.Empty;
             string matrix = movie;
-            string url = @"http://www.omdbapi.com/?s=matrix&r=xml&apikey=5ec4811a";
+            string url = String.Format(@"http://www.omdbapi.com/?s={0}&r=json&apikey=5ec4811a",matrix);
 
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
             //request.AutomaticDecompression = DecompressionMethods.GZip;
