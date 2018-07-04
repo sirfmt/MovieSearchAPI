@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovieApp.Models;
+using Newtonsoft.Json;
+
+
 
 namespace MvcMovieApp.Controllers
 {
@@ -29,24 +34,25 @@ namespace MvcMovieApp.Controllers
         // GET: Search Movies through API
         public ActionResult Search(string movie)
         {
-            string html = string.Empty;
+            string json = string.Empty;
             string matrix = movie;
             string url = String.Format(@"http://www.omdbapi.com/?s={0}&r=json&apikey=5ec4811a",matrix);
 
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
-            //request.AutomaticDecompression = DecompressionMethods.GZip;
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream()) 
             using (StreamReader reader = new StreamReader(stream))
             {
-                html = reader.ReadToEnd();
+                json = reader.ReadToEnd();
             }
-            ViewBag.Response = html;
-            Console.WriteLine(html);
+            ViewBag.Response = json;
+
+         /*   List<MovieRest> MovieList = JsonConvert.DeserializeObject<List<MovieRest>>(json);
+            ViewBag.Response = MovieList.ToDataTable<MovieRest>();*/
             return View();
         }
-
+        
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
