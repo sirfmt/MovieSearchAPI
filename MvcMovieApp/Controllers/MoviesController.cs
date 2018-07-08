@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovieApp.Models;
 using Newtonsoft.Json;
+using System.Web.Script.Serialization.JavaScriptSerializer;
 
 
 
@@ -48,8 +49,8 @@ namespace MvcMovieApp.Controllers
             }
             ViewBag.Response = json;
 
-         /*   List<MovieRest> MovieList = JsonConvert.DeserializeObject<List<MovieRest>>(json);
-            ViewBag.Response = MovieList.ToDataTable<MovieRest>();*/
+          MovieRest MovieList = JsonConvert.DeserializeObject<MovieRest>(json);
+            ViewBag.Response = MovieList.ToDataTable<MovieRest>();
             return View();
         }
         
